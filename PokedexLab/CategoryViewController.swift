@@ -64,7 +64,16 @@ class CategoryViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        <#code#>
+        selectedIndexPath = indexPath
+        performSegue(withIdentifier: "categoryToInfo", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "categoryToInfo" {
+            if let destinationVC = segue.destination as? PokemonInfoViewController {
+                destinationVC.pokemon = pokemonArray?[(selectedIndexPath?.item)!]
+            }
+        }
     }
 
     @IBOutlet weak var pokeTableView: UITableView!
